@@ -56,7 +56,7 @@ if __name__ == '__main__':
                 students.sort(key=lambda item: item.get('group', ''))
 
             if len(filter_students) > 1:
-                students.sort(key=lambda item: item.get('group', ''))
+                filter_students.sort(key=lambda item: item.get('group', ''))
 
         elif command == 'list':
             if len(students) > 0:
