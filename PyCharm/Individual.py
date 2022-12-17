@@ -7,16 +7,12 @@ if __name__ == '__main__':
     # Список для всех студентов.
     students = []
 
-    # Список для студентов со средним баллом больше 4
-    filter_students = []
-
     # Вывод справки.
     print("Список команд:")
     print("add - добавить студента")
     print("list - вывести список студентов")
     print("filter list - список студентов со средним баллом больше 4")
     print("exit - завершить работу с программой")
-
 
     # Бесконечный цикл запроса команд.
     while True:
@@ -44,19 +40,12 @@ if __name__ == '__main__':
                 'marks': marks,
             }
 
-            # Добавление словаря в список, если средний балл больше 4.
-            if sum(marks) / 5 > 4:
-                filter_students.append(student)
-
             # Добавление словаря в список со всеми студентами.
             students.append(student)
 
-            # Сортировка списков по номеру группы.
+            # Сортировка списка по номеру группы.
             if len(students) > 1:
                 students.sort(key=lambda item: item.get('group', ''))
-
-            if len(filter_students) > 1:
-                filter_students.sort(key=lambda item: item.get('group', ''))
 
         elif command == 'list':
             if len(students) > 0:
@@ -109,18 +98,19 @@ if __name__ == '__main__':
                 print(line)
 
                 # Вывод данных о студентах со средним баллом больше 4.
-                for idx, student in enumerate(filter_students, 1):
-                    print(
-                        '| {:>4} | {:<30} | {:<14} |'.format(
-                            idx,
-                            student.get('name', ''),
-                            student.get('group', ''),
+                for idx, student in enumerate(students, 1):
+                    if sum(student.get('marks')) / 5 > 4:
+                        print(
+                            '| {:>4} | {:<30} | {:<14} |'.format(
+                                idx,
+                                student.get('name', ''),
+                                student.get('group', ''),
+                            )
                         )
-                    )
-                print(line)
+                        print(line)
 
             else:
-                print("Нет студентов со средним баллом больше 4")
+                print("Список студентов пустой.")
 
         else:
             print(f"Неизвестная команда {command}", file=sys.stderr)
